@@ -37,8 +37,8 @@ const Login = () => {
         user
       );
       setAuthenticationStatus(STATUS.SUCCEEDED);
-      const { user: userObj, token, expiresAt } = response.data;
-      login(userObj, token, expiresAt);
+      const { user: userObj, accessToken, expiresAt } = response.data;
+      login(userObj, accessToken, expiresAt);
       navigate("/");
     } catch (error) {
       alert(error.response.data.error.message);

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,18 +17,22 @@ import SplashScreen from "./components/SplashScreen/SplashScreen";
 
 import { useAuth } from "./contexts/auth-context";
 import { STATUS } from "./utils/utils";
+import ReactHookForm from "./test/react-hook-form/react-hook-form";
+
+import EmployeeContext from "./test/context/context";
 
 function App() {
   const { login, logout, isAuthenticated, expiresAt } = useAuth();
 
   const refreshAccessToken = useCallback(async () => {
     try {
+      // axios.defaults.withCredentials = true;
       const response = await axios.post(
         "http://localhost:3000/api/auth/refresh",
-        {}
-        // {
-        //   withCredentials: true,
-        // }
+        {},
+        {
+          withCredentials: true,
+        }
       );
 
       const { user, accessToken, expiresAt } = response.data;
@@ -109,6 +113,15 @@ function App() {
       <RouterProvider router={router} />
     </div>
   );
+
+  // ..............Testing.................
+  // return (
+  //   <>
+  //     <EmployeeContext.Provider value={{}}>
+  //       <ReactHookForm />
+  //     </EmployeeContext.Provider>
+  //   </>
+  // );
 }
 
 // New code
